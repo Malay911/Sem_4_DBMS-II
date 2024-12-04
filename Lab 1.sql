@@ -80,13 +80,14 @@ ORDER BY DURATION;
 
 -----------------------------------------------Part-B-------------------------------------------------
 --22. Retrieve all song titles by artists who have more than one album.
-SELECT SONGS.SONG_TITLE,COUNT(ALBUMS.ALBUM_ID) FROM SONGS 
-JOIN ALBUMS 
-ON SONGS.ALBUM_ID=ALBUMS.ALBUM_ID
-JOIN ARTISTS 
-ON ARTISTS.ARTIST_ID=ALBUMS.ARTIST_ID
-GROUP BY SONGS.SONG_TITLE
-HAVING COUNT(ALBUMS.ALBUM_ID)>1;
+Select Song_title
+from Songs
+where Album_id in (Select Album_id
+					from Albums
+					where Artist_id in (select Artist_id
+										from Albums
+										group by Artist_id
+										having count(Album_title) > 1 ));
 
 --23. Retrieve all albums along with the total number of songs.
 SELECT ALBUMS.ALBUM_TITLE,COUNT(SONGS.SONG_TITLE) AS TOTALSONGS 
@@ -116,7 +117,11 @@ HAVING COUNT(SONGS.SONG_TITLE)>3;
 
 -----------------------------------------------Part-C-------------------------------------------------
 --27. Retrieve albums that have been released in the same year as 'Album4'
-
+select Album_title
+from Albums
+where Release_year in (Select Release_year
+						from Albums
+						where Album_title = 'Album4');
 
 --28. Find the longest song in each genre
 SELECT GENRE,MAX(DURATION)
@@ -124,11 +129,12 @@ FROM SONGS
 GROUP BY GENRE;
 
 --29. Retrieve the titles of songs released in albums that contain the word 'Album' in the title.
-
+select Songs.Song_title, Albums.Album_title
+from Albums join Songs on Albums.Album_id = Songs.Album_id
+where Albums.Album_title like '%Album%';
 
 --30. Retrieve the total duration of songs by each artist where total duration exceeds 15 minutes.
-SELECT ARTISTS.ARTIST_NAME,SUM(SONGS.DURATION) AS TOTAL_DURATION
-FROM ARTISTS JOIN ALBUMS ON ARTISTS.ARTIST_ID=ALBUMS.ARTIST_ID
-JOIN SONGS ON ALBUMS.ALBUM_ID=SONGS.ALBUM_ID
-GROUP BY ARTIST_NAME
-HAVING SUM(SONGS.DURATION)>15.00;
+select Artists.Artist_name ,sum(Songs.Duration)
+from Artists join Albums on Artists.Artist_id = Albums.Artist_id join Songs on Albums.Album_id = Songs.Album_id
+group by Artists.Artist_name
+having sum(Duration) > 15;
