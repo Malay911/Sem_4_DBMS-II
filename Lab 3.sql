@@ -34,6 +34,7 @@ VALUES
  (3, 'Finance', 103, 'Los Angeles'),
  (4, 'Admin', 104, 'Chicago'),
  (5, 'Marketing', 105, 'Miami');
+
  INSERT INTO Employee (EmployeeID, FirstName, LastName, DoB, Gender, HireDate, DepartmentID,
 Salary)
 VALUES
@@ -115,7 +116,7 @@ end
 exec PR_Employee_Dob '1985-04-12'
 
  -----------------------------------------------Part-B-------------------------------------------------
---6. Create a Procedure that accepts Gender’s first letter only and based on that employee details will be served.
+--6. Create a Procedure that accepts Genderâ€™s first letter only and based on that employee details will be served.
 create or alter proc PR_Employee_Gender
 	@Gender varchar(100)
 as
