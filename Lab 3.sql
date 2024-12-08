@@ -43,6 +43,7 @@ VALUES
  (103, 'Robert', 'Brown', '1982-12-05', 'Male', '2008-09-25', 3, 82000.00),
  (104, 'Emily', 'Davis', '1988-11-11', 'Female', '2012-07-18', 4, 58000.00),
  (105, 'Michael', 'Wilson', '1992-02-02', 'Male', '2018-11-30', 5, 67000.00);
+
 INSERT INTO Projects (ProjectID, ProjectName, StartDate, EndDate, DepartmentID)
 VALUES
  (201, 'Project Alpha', '2022-01-01', '2022-12-31', 1),
