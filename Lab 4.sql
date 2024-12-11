@@ -87,9 +87,53 @@ SELECT DBO.FR_FACTORIAL(5);
 
  -----------------------------------------------Part-B-------------------------------------------------
 --8. Write a function to compare two integers and return the comparison result. (Using Case statement)
+CREATE OR ALTER FUNCTION FR_COMPARETWOINTEGER(@INTEGER1 INT,@INTEGER2 INT)
+	RETURNS VARCHAR(50)
+AS
+BEGIN
+	DECLARE @RESULT  VARCHAR(50)
+	SET @RESULT=CASE
+		WHEN @INTEGER1>@INTEGER2 THEN 'INTEGER1 IS GREATER THAN INTEGER2'
+		WHEN @INTEGER1<@INTEGER2 THEN 'INTEGER2 IS GREATER THAN INTEGER1'
+		ELSE 'INTEGER1 AND INTEGER2 ARE EQUAL'
+		END
+	RETURN @RESULT
+END
+
+SELECT DBO.FR_COMPARETWOINTEGER(4,5);
 
 --9. Write a function to print the sum of even numbers between 1 to 20.
+CREATE OR ALTER FUNCTION FR_SUMOFEVENNUMBERS()
+	RETURNS INT
+AS
+BEGIN
+	DECLARE @RESULT INT=0;
+	DECLARE @I INT=1;
+	WHILE @I<=20
+		BEGIN
+			IF @I%2=0
+				SET @RESULT+=@I;
+			SET @I=@I+1;
+		END
+	RETURN @RESULT
+END
+
+SELECT DBO.FR_SUMOFEVENNUMBERS();
 --10. Write a function that checks if a given string is a palindrome
+create or alter function FR_Palindrome(@string varchar(100))
+	returns varchar(100)
+as
+begin
+	declare @reverse varchar(100) = reverse(@string);
+	declare @result varchar(100);
+	if @string = @reverse
+		set @result = 'Palindrome'
+	else
+		set @result = 'Not Palindrome'
+	return @result
+end
+
+select dbo.FR_Palindrome('16461');
  -----------------------------------------------Part-C-------------------------------------------------
 --11. Write a function to check whether a given number is prime or not.
 --12. Write a function which accepts two parameters start date & end date, and returns a difference in days.
