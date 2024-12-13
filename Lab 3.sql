@@ -106,15 +106,15 @@ end
 exec PR_Employee_Salary 80000, 150000
 
 --5. Create a Procedure that will accepts a date and gives all the employees who all are hired on that date.
-create or alter proc PR_Employee_Dob
-	@DoB datetime
+create or alter proc PR_Employee_Hiredate
+	@HireDate datetime
 as
 begin
-	select FirstName, DoB from Employee
-	where DoB = @DoB
+	select FirstName, HireDate from Employee
+	where HireDate = @HireDate
 end
 
-exec PR_Employee_Dob '1985-04-12'
+exec PR_Employee_Hiredate '2010-06-15'
 
  -----------------------------------------------Part-B-------------------------------------------------
 --6. Create a Procedure that accepts Gender’s first letter only and based on that employee details will be served.
