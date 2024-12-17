@@ -2,7 +2,7 @@
 Perform following queries using find, limit, skip and sort method.
 Create and Select Database Named: “BANK_INFO”
 
-use Database BANK_INFO
+use BANK_INFO
 switched to db Database
 
 db.createCollection("Deposit")
