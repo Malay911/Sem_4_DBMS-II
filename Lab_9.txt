@@ -223,3 +223,58 @@ db.Deposit.find().skip(5).limit(2)
 
 15. Display the count of documents in Deposit collection.
 db.Deposit.countDocuments()
+
+---------------------------------------PART-B-------------------------------------------
+1. Insert following documents into “Student” collection. (Use: insertMany())
+{ "_id": 1, "name": "John", "age": 30, "city": "New York", "isActive": true }
+{ "_id": 2, "name": "Jane", "age": 25, "city": "Los Angeles", "isActive": false }
+{ "_id": 3, "name": "Tom", "age": 35, "city": "Chicago", "isActive": true }
+{ "_id": 4, "name": "Lucy", "age": 28, "city": "San Francisco", "isActive": true }
+{ "_id": 5, "name": "David", "age": 40, "city": "Miami", "isActive": false }
+{ "_id": 6, "name": "Eva", "age": 23, "city": "Boston", "isActive": true }
+{ "_id": 7, "name": "Nick", "age": 38, "city": "Seattle", "isActive": false }
+{ "_id": 8, "name": "Sophia", "age": 27, "city": "New York", "isActive": true }
+{ "_id": 9, "name": "Liam", "age": 32, "city": "Los Angeles", "isActive": false }
+{ "_id": 10, "name": "Olivia", "age": 29, "city": "San Diego", "isActive": true }
+
+db.Student.insertMany([{ "_id": 1, "name": "John", "age": 30, "city": "New York", "isActive": true },
+{ "_id": 2, "name": "Jane", "age": 25, "city": "Los Angeles", "isActive": false },
+{ "_id": 3, "name": "Tom", "age": 35, "city": "Chicago", "isActive": true },
+{ "_id": 4, "name": "Lucy", "age": 28, "city": "San Francisco", "isActive": true },
+{ "_id": 5, "name": "David", "age": 40, "city": "Miami", "isActive": false },
+{ "_id": 6, "name": "Eva", "age": 23, "city": "Boston", "isActive": true },
+{ "_id": 7, "name": "Nick", "age": 38, "city": "Seattle", "isActive": false },
+{ "_id": 8, "name": "Sophia", "age": 27, "city": "New York", "isActive": true },
+{ "_id": 9, "name": "Liam", "age": 32, "city": "Los Angeles", "isActive": false },
+{ "_id": 10, "name": "Olivia", "age": 29, "city": "San Diego", "isActive": true }])
+
+2. Display all documents of "Student" collection.
+db.Student.find()
+
+3. Display all documents of "Student" collection whose age is 30.
+db.Student.find({"age":{$eq:30}})
+
+4. Display all documents of "Student" collection whose age is greater than 25.
+db.Student.find({"age":{$gt:25}})
+
+5. Display all documents of "Student" collection whose name is "John" and age is 30.
+db.Student.find({"age":{$eq:30},"name":"John"})
+
+6. Display all documents of "Student" collection whose age is not equal to 25.
+db.Student.find({"age":{$ne:30}})
+
+7. Display all documents of "Student" collection whose age is equal to 25 or 30 or 35. (using $or as well as using $in).
+Using $or
+db.Student.find({$or: [{ age: 25 },{ age: 30 },{ age: 35 }]});
+
+Using $in
+db.Student.find({age: { $in: [25, 30, 35] }});
+
+8. Display all documents of "Student" collection whose name is "John" or age is 30.
+db.Student.find({$or: [{ age: 30 },{ name: "John"}]});
+
+9. Display all documents of "Student" collection whose name is "John" and city is New York.
+db.Student.find({"city":"New York","name":"John"})
+
+10. Display name and age of students from "Student" collection whose name is "John" and city is New York.
+db.Student.find({"city":"New York","name":"John"},{_id:0,name:1,age:1})
