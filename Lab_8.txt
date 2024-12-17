@@ -1,10 +1,10 @@
 -----------------------------------------------------------PART-A----------------------------------------------------------
 1. Create a new database named “Darshan”.
-use database Darshan
+use Darshan
 switched to db database
 
 2. Create another new database named “DIET”.
-use database DIET
+use DIET
 already on db database
 
 3. List all databases.
@@ -15,8 +15,8 @@ local   168.00 KiB
 todo     72.00 KiB
 
 4. Check the current database.
-use database Darshan
-already on db database
+db
+DIET
 
 5. Drop “DIET” database.
 db.dropDatabase("DIET")
@@ -58,7 +58,7 @@ true
 
 12. Insert a single document using insertOne into “Student” collection.
 (Fields are Name, City, Branch, Semester, Age) Insert your own data
-db.Student.insertOne({Name:"Malay",City:"Jamnagar",Branch:"CSE",Semester:"4",Age:"19"})
+db.Student.insertOne({Name:"Malay",City:"Jamnagar",Branch:"CSE",Semester:4,Age:19})
 {
   acknowledged: true,
   insertedId: ObjectId('67567f98eec5005c50088310')
@@ -66,7 +66,9 @@ db.Student.insertOne({Name:"Malay",City:"Jamnagar",Branch:"CSE",Semester:"4",Age
 
 13. Insert three documents using insertMany into “Student” collection.
 (Fields are Name, City, Branch, Semester, Age) Insert your three friend’s data.
-db.Student.insertMany([{Name:"Kavyam",City:"Rajkot",Branch:"CSE",Semester:"4",Age:"19"},{Name:"Dhairya",City:"Rajkot",Branch:"CSE",Semester:"4",Age:"4"},{Name:"Kalp",City:"Jamnagar",Branch:"CSE",Semester:"4",Age:"19"}])
+db.Student.insertMany([{Name:"Kavyam",City:"Rajkot",Branch:"CSE",Semester:4,Age:19},
+			{Name:"Dhairya",City:"Rajkot",Branch:"CSE",Semester:4,Age:19},
+			{Name:"Kalp",City:"Jamnagar",Branch:"CSE",Semester:4,Age:19}])
 {
   acknowledged: true,
   insertedIds: {
@@ -105,7 +107,14 @@ db.createCollection("Deposit")
 { ok: 1 }
 
 18. Insert following data in to “Deposit” collection.
-db.Deposit.insertMany([{ACTNO:"101",CNAME:"ANIL",BNAME:"VRCE",AMOUNT:"1000.00",CITY:"Rajkot"},{ACTNO:"102",CNAME:"SUNIL",BNAME:"AJNI",AMOUNT:"5000.00",CITY:"SURAT"},{ACTNO:"103",CNAME:"MEHUL",BNAME:"KAROLBAGH",AMOUNT:"3500.00",CITY:"BARODA"},{ACTNO:"104",CNAME:"MADHURI",BNAME:"CHANDI",AMOUNT:"1200.00",CITY:"AHMEDABAD"},{ACTNO:"105",CNAME:"PRMOD",BNAME:"M.G. ROAD",AMOUNT:"3000.00",CITY:"SURAT"},{ACTNO:"106",CNAME:"SANDIP",BNAME:"ANDHERI",AMOUNT:"2000.00",CITY:"RAJKOT"},{ACTNO:"107",CNAME:"SHIVANI",BNAME:"VIRAR",AMOUNT:"1000.00",CITY:"SURAT"},{ACTNO:"108",CNAME:"KRANTI",BNAME:"NEHRU PLACE",AMOUNT:"5000.00",CITY:"RAJKOT"}])
+db.Deposit.insertMany([{ACTNO:101,CNAME:"ANIL",BNAME:"VRCE",AMOUNT:1000.00,CITY:"Rajkot"},
+			{ACTNO:102,CNAME:"SUNIL",BNAME:"AJNI",AMOUNT:5000.00,CITY:"SURAT"},
+			{ACTNO:103,CNAME:"MEHUL",BNAME:"KAROLBAGH",AMOUNT:3500.00,CITY:"BARODA"},
+			{ACTNO:104,CNAME:"MADHURI",BNAME:"CHANDI",AMOUNT:1200.00,CITY:"AHMEDABAD"},
+			{ACTNO:105,CNAME:"PRMOD",BNAME:"M.G. ROAD",AMOUNT:3000.00,CITY:"SURAT"},
+			{ACTNO:106,CNAME:"SANDIP",BNAME:"ANDHERI",AMOUNT:2000.00,CITY:"RAJKOT"},
+			{ACTNO:107,CNAME:"SHIVANI",BNAME:"VIRAR",AMOUNT:1000.00,CITY:"SURAT"},
+			{ACTNO:108,CNAME:"KRANTI",BNAME:"NEHRU PLACE",AMOUNT:5000.00,CITY:"RAJKOT"}])
 {
   acknowledged: true,
   insertedIds: {
@@ -291,7 +300,6 @@ db.dropDatabase("Computer")
 -----------------------------------------------------------PART-C----------------------------------------------------------
 1. Create a new database named “Computer”.
 2. Create a collection named “Faculty” in the “Computer” database.
-
 3. Insert a below documents into “Faculty” collection.
 4. Display all the documents of “Faculty” collection.
 5. Drop the “Faculty” collection.
