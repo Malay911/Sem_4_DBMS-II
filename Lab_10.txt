@@ -1,5 +1,4 @@
 ------------------------------------PART-A-----------------------------------
-
 1. Update the age of John's to 31.
 db.Student.updateOne({name:'John'},{$set:{age:31}})
 
@@ -34,8 +33,6 @@ db.Student.updateMany({}, { $set: { country: 'USA' } });
 db.Student.updateOne({name:'David'},{$set:{city:'Orlando'}})
 
 12. Multiply the age of all students by 2.
-
-
 13. Unset (remove) the city field for 'Tom'. 
 14. Add a new field premiumUser and to true for users older than 30. 
 15. Set isActive to true for 'Jane'. 
