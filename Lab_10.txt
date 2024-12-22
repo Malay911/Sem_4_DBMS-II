@@ -102,3 +102,5 @@ db.Employee.insertMany([
     { Ecode: 3, Ename: "Tom", age: 35, EID: 3 },
     { Ecode: 4, Ename: "Lucy", age: 28, city: "San Francisco", isActive: true, EID: 4 },
     { Ename: "Dino", EID: 5 }])
+
+------------------------------------PART-B-----------------------------------
