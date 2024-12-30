@@ -95,6 +95,7 @@ db.students.updateMany({city:"San Francisco"},{$rename:{age:"yearsOld"}})
 	{"Ecode ": 3, "Ename": "Tom", "age": 35}
 	{"Ecode ": 4, "Ename": "Lucy", "age": 28, "city": "San Francisco", "isActive": true}
 	{"Ename": "Dino"}
+
 db.createCollection("Employee",{capped:true,size:100000,max:1000})
 db.Employee.insertMany([
     { Ecode: 1, Ename: "John", EID: 1 },
