@@ -39,6 +39,7 @@ INSERT INTO Products (Product_id, Product_Name, Price) VALUES
 	close cursor_FetchData
 
 	deallocate cursor_FetchData
+		
 --2. Create a cursor Product_Cursor_Fetch to fetch the records in form of ProductID_ProductName. 
 	declare @ID1 int, @Name1 varchar(100) 
 
@@ -63,6 +64,7 @@ INSERT INTO Products (Product_id, Product_Name, Price) VALUES
 	close Product_Cursor_Fetch
 
 	deallocate Product_Cursor_Fetch
+		
 --(Example: 1_Smartphone) 
 --3. Create a Cursor to Find and Display Products Above Price 30,000. 
 	
@@ -90,10 +92,7 @@ INSERT INTO Products (Product_id, Product_Name, Price) VALUES
 	close Product_Cursor_Fetch_Price
 
 	deallocate Product_Cursor_Fetch_Price
-
-
-
-
+		
 --4. Create a cursor Product_CursorDelete that deletes all the data from the Products table.
 	
 	declare @ProductID int;
@@ -178,10 +177,11 @@ INSERT INTO Products (Product_id, Product_Name, Price) VALUES
 	close Product_CursorRound
 
 	deallocate Product_CursorRound
+		
 	select * from Products
 
 ----------------------------------Part - C--------------------------------------- 
---7. Create a cursor to insert details of Products into the NewProducts table if the product is ìLaptopî 
+--7. Create a cursor to insert details of Products into the NewProducts table if the product is ‚ÄúLaptop‚Äù 
 --(Note: Create NewProducts table first with same fields as Products table) 
 --8. Create a Cursor to Archive High-Price Products in a New Table (ArchivedProducts), Moves products 
 --with a price above 50000 to an archive table, removing them from the original Products table.
