@@ -187,7 +187,7 @@ BEGIN
     END
 END;
 
---Part – C
+----------------------------------------Part – C-----------------------------------------------------
 --9. Create Trigger to Automatically Update JoiningDate to Current Date on INSERT if JoiningDate is NULL during an INSERT.
 CREATE OR ALTER TRIGGER tr_DefaultJoiningDate
 ON PersonInfo
