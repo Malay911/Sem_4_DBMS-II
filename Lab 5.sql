@@ -21,6 +21,7 @@ CREATE TABLE PersonLog (
 
 --From the above given tables perform the following queries:
 ----------------------------------------Part – A-----------------------------------------------------
+
 --1. Create a trigger that fires on INSERT, UPDATE and DELETE operation on the PersonInfo table to display a message “Record is Affected.”
 CREATE OR ALTER TRIGGER tr_DisplayMessage
 ON PersonInfo
@@ -104,52 +105,42 @@ BEGIN
 END;
 
 --5. Create trigger that prevent duplicate entries of person name on PersonInfo table.
-CREATE OR ALTER TRIGGER tr_PreventDuplicateName
-ON PersonInfo
-INSTEAD OF INSERT
-AS
-BEGIN
-    IF EXISTS (
-        SELECT 1
-        FROM PersonInfo
-        WHERE PersonName IN (SELECT PersonName FROM inserted)
-    )
-    BEGIN
-        RAISERROR ('Duplicate PersonName is not allowed.', 16, 1);
-        ROLLBACK TRANSACTION;
-    END
-    ELSE
-    BEGIN
-        INSERT INTO PersonInfo (PersonID, PersonName, Salary, JoiningDate, City, Age, BirthDate)
-        SELECT PersonID, PersonName, Salary, JoiningDate, City, Age, BirthDate
-        FROM inserted;
-    END
-END;
+create trigger tr_stop_duplicate
+	on  PersonInfo
+	instead of insert
+	as
+	begin
+		insert into PersonInfo (PersonID, PersonName, Salary, JoiningDate, City, Age, BirthDate)
+		select 
+			PersonID, PersonName, Salary, JoiningDate, City, Age, BirthDate
+			from inserted
+			where PersonName not in	(
+				select PersonName from PersonInfo
+			)
+	end
+
+	drop trigger tr_stop_duplicate
 
 --6. Create trigger that prevent Age below 18 years.
-CREATE OR ALTER TRIGGER tr_PreventUnderage
-ON PersonInfo
-AFTER INSERT
-AS
-BEGIN
-    IF EXISTS (
-        SELECT 1
-        FROM inserted
-        WHERE Age < 18
-    )
-    BEGIN
-        RAISERROR ('Age must be 18 or older.', 16, 1);
-        ROLLBACK TRANSACTION;
-    END
-    ELSE
-    BEGIN
-        INSERT INTO PersonInfo (PersonID, PersonName, Salary, JoiningDate, City, Age, BirthDate)
-        SELECT PersonID, PersonName, Salary, JoiningDate, City, Age, BirthDate
-        FROM inserted;
-    END
-END;
+create or alter trigger tr_Insert_age_below18
+	on PersonInfo
+	instead of insert
+	as
+	begin
+
+		insert into PersonInfo (PersonID, PersonName, Salary, JoiningDate, City, Age, BirthDate)
+		select 
+			PersonID, PersonName, Salary, JoiningDate, City, Age, BirthDate
+			from inserted
+			where  Age >= 18
+	end
+	insert into PersonInfo values(1, 'MALAY', 120000, '1999-12-2', 'JAMNAGAR', 99, '2005-12-24')
+	select * from PersonInfo
+
+	drop trigger tr_Insert_age_below18
 
 ----------------------------------------Part – B-----------------------------------------------------
+
 --7. Create a trigger that fires on INSERT operation on person table, which calculates the age and update that age in Person table.
 CREATE OR ALTER TRIGGER tr_CalculateAge
 ON PersonInfo
@@ -188,6 +179,7 @@ BEGIN
 END;
 
 ----------------------------------------Part – C-----------------------------------------------------
+
 --9. Create Trigger to Automatically Update JoiningDate to Current Date on INSERT if JoiningDate is NULL during an INSERT.
 CREATE OR ALTER TRIGGER tr_DefaultJoiningDate
 ON PersonInfo
