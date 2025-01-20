@@ -148,18 +148,43 @@ db.students.find({SNAME:/a$/})
 10. Find students whose names contain 'ri'. (case-insensitive)
 db.students.find({SNAME:/ri/i})
 
-
 --------------------------------------------------------PART - C-------------------------------------------------------
 
 1. Find students whose names start with a vowel (A, E, I, O, U). 
-2. Find students whose CITY ends with 'pur' or 'bad'. 
-3. Find students whose FEES starts with '1'. 
-4. Find students whose SNAME starts with 'K' or 'V'. 
-5. Find students whose CITY contains exactly five characters. 
-6. Find students whose names do not contain the letter 'e'. 
-7. Find students whose CITY starts with 'Ra' and ends with 'ot'. 
-8. Find students whose names contain exactly one vowel. 
-9. Find students whose names start and end with the same letter. 
+db.students.find({SNAME:/^[aeiou]/})
+
+2. Find students whose CITY ends with 'pur' or 'bad'.
+db.students.find({$or:[{CITY:/pur$/},{CITY:/bad$/}]})
+
+3. Find students whose FEES starts with '1'.
+db.students.find({FEES:/^1/})
+
+4. Find students whose SNAME starts with 'K' or 'V'.
+db.students.find({$or:[{SNAME:/^K/},{SNAME:/^V/}]})
+
+5. Find students whose CITY contains exactly five characters.
+db.students.find({CITY:/^.{5}$/})
+
+6. Find students whose names do not contain the letter 'e'.
+db.students.find({$nor:[{SNAME:/e/}]})
+
+7. Find students whose CITY starts with 'Ra' and ends with 'ot'.
+db.students.find({CITY:/^Ra.*ot$/})
+
+8. Find students whose names contain exactly one vowel.
+db.students.find({SNAME:/^[^aeiou]*[aeiou][^aeiou]*$/})
+
+9. Find students whose names start and end with the same letter.
+db.students.find({SNAME:/^(.).*\1$/i})
+^(.).* - Captures the first letter of the name.
+\1$ - Ensures the last letter matches the first captured letter.
+/i - Makes it case-insensitive (matches uppercase and lowercase letters).
+
 10. Find students whose DEPARTMENT starts with either 'C' or 'E'. 
+db.students.find({$or:[{DEPARTMENT:/^C/},{DEPARTMENT:/^E/}]})
+
 11. Find students whose SNAME has exactly 5 characters. 
+db.students.find({SNAME:/^.{5}$/})
+
 12. Find students whose GENDER is Female and CITY starts with 'A'.
+db.students.find({$and:[{GENDER:/Female/},{CITY:/^A/}]})
