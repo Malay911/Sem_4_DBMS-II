@@ -104,6 +104,7 @@ db.employee.find({ENAME:/^[A-Z][a-z]/})
 
 
 --------------------------------------------------------PART - B-------------------------------------------------------
+
 1. Display documents where sname start with K. 
 2. Display documents where sname starts with Z or D. 
 3. Display documents where city starts with A to R. 
