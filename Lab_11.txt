@@ -105,16 +105,49 @@ db.employee.find({ENAME:/^[A-Z][a-z]/})
 
 --------------------------------------------------------PART - B-------------------------------------------------------
 
-1. Display documents where sname start with K. 
-2. Display documents where sname starts with Z or D. 
-3. Display documents where city starts with A to R. 
+db.students.insertMany([
+  { ROLLNO: 101, SNAME: "Vina", DEPARTMENT: "CE", FEES: 15000, SEM: 3, GENDER: "Female", CITY: "Rajkot" },
+  { ROLLNO: 102, SNAME: "Krisha", DEPARTMENT: "EC", FEES: 8000, SEM: 5, GENDER: "Female", CITY: "Ahmedabad" },
+  { ROLLNO: 103, SNAME: "Priti", DEPARTMENT: "Civil", FEES: 12000, SEM: 7, GENDER: "Female", CITY: "Baroda" },
+  { ROLLNO: 104, SNAME: "Mitul", DEPARTMENT: "CE", FEES: 15000, SEM: 3, GENDER: "Male", CITY: "Rajkot" },
+  { ROLLNO: 105, SNAME: "Keshav", DEPARTMENT: "CE", FEES: 15000, SEM: 3, GENDER: "Male", CITY: "Jamnagar" },
+  { ROLLNO: 106, SNAME: "Zarna", DEPARTMENT: "Civil", FEES: 12000, SEM: 5, GENDER: "Female", CITY: "Ahmedabad" },
+  { ROLLNO: 107, SNAME: "Nima", DEPARTMENT: "EE", FEES: 9000, SEM: 5, GENDER: "Female", CITY: "Rajkot" },
+  { ROLLNO: 108, SNAME: "Dhruv", DEPARTMENT: "Mechanical", FEES: 10000, SEM: 5, GENDER: "Male", CITY: "Rajkot" },
+  { ROLLNO: 109, SNAME: "Krish", DEPARTMENT: "Mechanical", FEES: 10000, SEM: 7, GENDER: "Male", CITY: "Baroda" },
+  { ROLLNO: 110, SNAME: "Zeel", DEPARTMENT: "EE", FEES: 9000, SEM: 3, GENDER: "Female", CITY: "Jamnagar" }
+])
+
+1. Display documents where sname start with K.
+db.students.find({SNAME:/^K/})
+
+2. Display documents where sname starts with Z or D.
+db.students.find({$or:[{SNAME:/^Z/},{SNAME:/^D/}]})
+
+3. Display documents where city starts with A to R.
+db.students.find({$or:[{CITY:/^A/},{CITY:/^R/}]})
+
 4. Display students’ info whose name start with P and ends with i. 
-5. Display students’ info whose department name starts with ‘C’. 
+db.students.find({SNAME:/^P.*i$/})
+
+5. Display students’ info whose department name starts with ‘C’.
+db.students.find({DEPARTMENT:/^C/})
+
 6. Display name, sem, fees, and department whose city contains ‘med’ as three letters somewhere in city name. 
-7. Display name, sem, fees, and department who does not belongs to city Rajkot or Baroda. 
+db.students.find({CITY:/med/},{SNAME:1,SEM:1,FEES:1,DEPARTMENT:1})
+
+7. Display name, sem, fees, and department who does not belongs to city Rajkot or Baroda.
+db.students.find({$nor:[{CITY:/Rajkot/},{CITY:/Baroda/}]},{SNAME:1,SEM:1,FEES:1,DEPARTMENT:1})
+
 8. Find students whose names start with 'K' and are followed by any character. 
-9. Find students whose names end with 'a'. 
+db.students.find({SNAME:/^K.*/})
+
+9. Find students whose names end with 'a'.
+db.students.find({SNAME:/a$/})
+
 10. Find students whose names contain 'ri'. (case-insensitive)
+db.students.find({SNAME:/ri/i})
+
 
 --------------------------------------------------------PART - C-------------------------------------------------------
 
