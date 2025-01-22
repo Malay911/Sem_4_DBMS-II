@@ -102,7 +102,6 @@ db.employee.find({ENAME:/^[^aeiou]*[aeiou][^aeiou]*$/i})
 28. Find employees whose names start with any uppercase letter followed by any lowercase letter.
 db.employee.find({ENAME:/^[A-Z][a-z]/})
 
-
 --------------------------------------------------------PART - B-------------------------------------------------------
 
 db.students.insertMany([
