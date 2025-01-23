@@ -13,7 +13,7 @@ db.employee.insertMany([
     { EID: 10, ENAME: "John", GENDER: "Male", JOININGDATE: "01-JAN-15", SALARY: 8800, CITY: "London" }
 ]);
 
---------------------------------------------------------PART - A-------------------------------------------------------
+--------------------------------------------------------PART - A--------------------------------------------------------
 
 1. Find employees whose name start with E.
 db.employee.find({ENAME:/^E/})
