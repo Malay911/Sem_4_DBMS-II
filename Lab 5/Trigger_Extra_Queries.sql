@@ -201,5 +201,21 @@ end
 --3.	Create trigger that prevent duplicate 'MovieTitle' of Movies table and log details of it in MoviesLog table.
 
 --4.	Create trigger that prevents to insert pre-release movies.
+create or alter trigger tr_insteadof_rating_insert
+on Movies
+instead of insert
+as
+begin
+	declare @MovieId int,@rating varchar(100),@Release int
+	select @MovieId=MovieID from inserted
+	select @Release=ReleaseYear from inserted
+	
+	if(@Release>GETDATE())
+	begin
+		print 'Invalid'
+		delete from Movies
+		where MovieID=@MovieId
+	end
+end
 
 --5.	Develop a trigger to ensure that the Duration of a movie cannot be updated to a value greater than 120 minutes (2 hours) to prevent unrealistic entries.
