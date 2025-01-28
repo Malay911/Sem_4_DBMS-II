@@ -138,6 +138,7 @@ begin
 end
 
 --------------------------------------------INSTEAD OF TRIGGER--------------------------------------------
+	
 CREATE TABLE Movies (
     MovieID INT PRIMARY KEY,
     MovieTitle VARCHAR(255) NOT NULL,
