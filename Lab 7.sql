@@ -95,12 +95,91 @@ EXEC ER_CUSTOMERROR 2
 -------------------------------------------------Part – B---------------------------------------------------------
 
 --6. Handle a Foreign Key Violation while inserting data into Orders table and print appropriate error message.
-
+BEGIN TRY
+    INSERT INTO Orders (Order_id, Customer_id, Order_date)
+    VALUES (1, 100, GETDATE());
+END TRY
+BEGIN CATCH
+    PRINT 'Foreign Key Violation: Customer_id does not exist in the Customers table.';
+    PRINT 'Error Message: ' + ERROR_MESSAGE();
+END CATCH;
 
 --7. Throw custom exception that throws error if the data is invalid.
---8. Create a Procedure to Update Customer’s Email with Error Handling
+CREATE PROCEDURE SP_ValidateData
+@CustomerName VARCHAR(250)
+AS
+BEGIN
+    IF LEN(@CustomerName) = 0
+    BEGIN
+        THROW 51001, 'Invalid data: Customer name cannot be empty.', 1;
+    END
+    ELSE
+    BEGIN
+        PRINT 'Data is valid.';
+    END
+END
 
--------------------------------------------------Part – C---------------------------------------------------------
+EXEC SP_ValidateData ''
+EXEC SP_ValidateData 'MALAY'
 
+--8. Create a Procedure to Update Customer’s Email with Error Handling.
+CREATE PROCEDURE SP_UpdateCustomerEmail
+@Customer_id INT, @Email VARCHAR(50)
+AS
+BEGIN
+    BEGIN TRY
+        UPDATE Customers
+        SET Email = @Email
+        WHERE Customer_id = @Customer_id;
+        PRINT 'Email updated successfully.';
+    END TRY
+    BEGIN CATCH
+        PRINT 'Error updating email.';
+        PRINT 'Error Message: ' + ERROR_MESSAGE();
+    END CATCH;
+END;
+
+EXEC SP_UpdateCustomerEmail 1, 'MALAY@gmail.com'
+EXEC SP_UpdateCustomerEmail 2, 'hardik@gmail.com'
+
+--Part – C
 --9. Create a procedure which prints the error message that “The Customer_id is already taken. Try another one”.
+CREATE PROCEDURE SP_InsertCustomer
+@Customer_id INT, @Customer_Name VARCHAR(250), @Email VARCHAR(50)
+AS
+BEGIN
+    BEGIN TRY
+        INSERT INTO Customers (Customer_id, Customer_Name, Email)
+        VALUES (@Customer_id, @Customer_Name, @Email);
+        PRINT 'Customer inserted successfully.';
+    END TRY
+    BEGIN CATCH
+        IF ERROR_NUMBER() = 2627
+        BEGIN
+            PRINT 'The Customer_id is already taken. Try another one.';
+        END
+        ELSE
+        BEGIN
+            PRINT 'Error: ' + ERROR_MESSAGE();
+        END
+    END CATCH;
+END;
+
+EXEC SP_InsertCustomer 1, 'MALAY', 'MALAY@gmail.com'
+EXEC SP_InsertCustomer 2, 'Hardik', 'hardik@gmail.com'
+
 --10. Handle Duplicate Email Insertion in Customers Table.
+BEGIN TRY
+    INSERT INTO Customers (Customer_id, Customer_Name, Email)
+    VALUES (3, 'Bhavin', 'hardik@example.com');
+END TRY
+BEGIN CATCH
+    IF ERROR_NUMBER() = 2627
+    BEGIN
+        PRINT 'Duplicate Email Insertion: The email address already exists.';
+    END
+    ELSE
+    BEGIN
+        PRINT 'Error: ' + ERROR_MESSAGE();
+    END
+END CATCH;
