@@ -12,7 +12,7 @@ CREATE TABLE Orders (
  FOREIGN KEY (Customer_id) REFERENCES Customers(Customer_id)
 );
 
-------------------------------------------------Part ñ A----------------------------------------------------------
+------------------------------------------------Part ‚Äì A----------------------------------------------------------
 
 --1. Handle Divide by Zero Error and Print message like: Error occurs that is - Divide by zero error.
 BEGIN TRY
@@ -24,7 +24,7 @@ BEGIN CATCH
 	PRINT 'Error occurs that is - Divide by zero error'
 END CATCH
 
---2. Try to convert string to integer and handle the error using tryÖcatch block.
+--2. Try to convert string to integer and handle the error using try‚Ä¶catch block.
 BEGIN TRY
 	DECLARE @C VARCHAR(50)='HELLO WORLD',@D INT
 	SET @D=CAST(@C AS INT);
@@ -92,7 +92,7 @@ END
 EXEC ER_CUSTOMERROR 1
 EXEC ER_CUSTOMERROR 2
 
--------------------------------------------------Part ñ B---------------------------------------------------------
+-------------------------------------------------Part ‚Äì B---------------------------------------------------------
 
 --6. Handle a Foreign Key Violation while inserting data into Orders table and print appropriate error message.
 BEGIN TRY
@@ -122,7 +122,7 @@ END
 EXEC SP_ValidateData ''
 EXEC SP_ValidateData 'MALAY'
 
---8. Create a Procedure to Update Customerís Email with Error Handling.
+--8. Create a Procedure to Update Customer‚Äôs Email with Error Handling.
 CREATE PROCEDURE SP_UpdateCustomerEmail
 @Customer_id INT, @Email VARCHAR(50)
 AS
@@ -142,8 +142,8 @@ END;
 EXEC SP_UpdateCustomerEmail 1, 'MALAY@gmail.com'
 EXEC SP_UpdateCustomerEmail 2, 'hardik@gmail.com'
 
---Part ñ C
---9. Create a procedure which prints the error message that ìThe Customer_id is already taken. Try another oneî.
+--Part ‚Äì C
+--9. Create a procedure which prints the error message that ‚ÄúThe Customer_id is already taken. Try another one‚Äù.
 CREATE PROCEDURE SP_InsertCustomer
 @Customer_id INT, @Customer_Name VARCHAR(250), @Email VARCHAR(50)
 AS
@@ -169,6 +169,7 @@ EXEC SP_InsertCustomer 1, 'MALAY', 'MALAY@gmail.com'
 EXEC SP_InsertCustomer 2, 'Hardik', 'hardik@gmail.com'
 
 --10. Handle Duplicate Email Insertion in Customers Table.
+	
 BEGIN TRY
     INSERT INTO Customers (Customer_id, Customer_Name, Email)
     VALUES (3, 'Bhavin', 'hardik@example.com');
