@@ -142,7 +142,8 @@ END;
 EXEC SP_UpdateCustomerEmail 1, 'MALAY@gmail.com'
 EXEC SP_UpdateCustomerEmail 2, 'hardik@gmail.com'
 
---Part – C
+-------------------------------------------------Part – C---------------------------------------------------------
+	
 --9. Create a procedure which prints the error message that “The Customer_id is already taken. Try another one”.
 CREATE PROCEDURE SP_InsertCustomer
 @Customer_id INT, @Customer_Name VARCHAR(250), @Email VARCHAR(50)
