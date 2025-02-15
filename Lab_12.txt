@@ -1,4 +1,4 @@
--------------------------------------------------------------Part – A--------------------------------------------------------
+-------------------------------------------------------------Part – A------------------------------------------------
 Create collection named “Student” and insert following 10 documents into it.
 
 db.Student.insertMany([
@@ -137,7 +137,7 @@ db.Student.aggregate([{$group: {_id: {department: "$DEPARTMENT", gender: "$GENDE
 19. Group by Sem and calculate both the total and average Fees, then sort by total fees in descending order. 
 20. Find the top 3 cities with the highest total Fees collected by summing up all students' fees in those cities.
 
--------------------------------------------------------------Part – B--------------------------------------------------------
+-------------------------------------------------------------Part – B------------------------------------------------
 
 1. Create a collection named” Stock.” 
 db.createCollection("Stock")
@@ -173,7 +173,7 @@ db.Stock.insertMany([
 14. Find the average ROE across all companies. 
 15. Group companies by sector and calculate both the minimum and maximum EPS. 
 
--------------------------------------------------------------Part – C--------------------------------------------------------
+-------------------------------------------------------------Part – C------------------------------------------------
 
 1. Count the number of companies with profit greater than 30,000. 
 db.Stock.aggregate([{$match:{profit:{$gt:30000}}},{$count:"companies"}])
