@@ -95,7 +95,7 @@ db.Student.insertMany([
 ]);
 
 1. Display distinct city. 
-db.Student.distinct('CITY')
+db.Student.aggregate([{$group:{_id:"$CITY"}}])
 
 2. Display city wise count of number of students.
 db.Student.aggregate([{ $group: { _id: "$CITY", studentCount: { $sum: 1 } } }]);
