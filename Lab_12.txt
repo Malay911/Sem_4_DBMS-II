@@ -375,3 +375,41 @@ db.Stock.aggregate([{$group:{_id:"AverageROE",avgROE:{$avg:"$roe"}}}]);
 
 15. Group companies by sector and calculate both the minimum and maximum EPS.
 db.Stock.aggregate([{$group:{_id:"$sector",minEPS:{$min:"$eps"},maxEPS:{$max:"$eps"}}}]);
+
+-------------------------------------------------------------Part – C------------------------------------------------
+
+1. Count the number of companies with profit greater than 30,000. 
+db.Stock.aggregate([{$match:{profit:{$gt:30000}}},{$count:"companies"}])
+
+2. Get the total profit by sector and sort by descending total profit.
+db.Stock.aggregate([{$group:{_id:"$sector",totalProfit:{$sum:"$profit"}}},{$sort:{totalProfit:-1}}])
+
+3. Find the top 3 companies with the highest sales.
+db.Stock.aggregate([{$sort:{sales:-1}},{$limit:3}])
+ 
+4. Calculate the average PE ratio of companies grouped by sector.
+db.Stock.aggregate([{$group:{_id:"$sector",avgPE:{$avg:"$pe"}}}])
+ 
+5. Get the sum of sales and profit for each company.
+db.Stock.aggregate([{$project:{company:1,sales:1,profit:1,sum:{$add:["$sales","$profit"]}}}])
+
+6. Find companies with sales less than 400,000 and sort them by sales.
+db.Stock.aggregate([{$match:{sales:{$lt:400000}}},{$sort:{sales:1}}])
+
+7. Group companies by sector and find the total number of companies in each sector.
+db.Stock.aggregate([{$group:{_id:"$sector",count:{$sum:1}}}])
+
+8. Get the average ROE for companies with sales greater than 200,000.
+db.Stock.aggregate([{$match:{sales:{$gt:200000}}},{$group:{_id:null,avgROE:{$avg:"$roe"}}}])
+
+9. Find the maximum profit in each sector.
+db.Stock.aggregate([{$group:{_id:"$sector",maxProfit:{$max:"$profit"}}}])
+
+10. Get the total sales and count of companies in each sector.
+db.Stock.aggregate([{$group:{_id:"$sector",totalSales:{$sum:"$sales"},count:{$sum:1}}}])
+
+11. Project fields where profit is more than 20,000 and only show company and profit.
+db.Stock.aggregate([{$match:{profit:{$gt:20000}}},{$project:{company:1,profit:1}}])
+
+12. Find companies with the lowest ROE and sort them in ascending order.(Use: Aggregate)
+db.Stock.aggregate([{$sort:{roe:1}},{$limit:1}])
