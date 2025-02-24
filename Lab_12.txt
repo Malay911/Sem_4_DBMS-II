@@ -95,7 +95,7 @@ db.Student.insertMany([
 ]);
 
 1. Display distinct city. 
-db.Student.aggregate([{$group:{_id:"$CITY"}}])
+db.Student.distinct('CITY')
 
 2. Display city wise count of number of students.
 db.Student.aggregate([{ $group: { _id: "$CITY", studentCount: { $sum: 1 } } }]);
@@ -376,7 +376,7 @@ db.Stock.aggregate([{$group:{_id:"AverageROE",avgROE:{$avg:"$roe"}}}]);
 15. Group companies by sector and calculate both the minimum and maximum EPS.
 db.Stock.aggregate([{$group:{_id:"$sector",minEPS:{$min:"$eps"},maxEPS:{$max:"$eps"}}}]);
 
--------------------------------------------------------------Part – C------------------------------------------------
+-------------------------------------------------------------Part – C--------------------------------------------------------
 
 1. Count the number of companies with profit greater than 30,000. 
 db.Stock.aggregate([{$match:{profit:{$gt:30000}}},{$count:"companies"}])
