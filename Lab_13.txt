@@ -1,5 +1,6 @@
 Perform the following queries on Index, Cursor, Schema Validation, Embedded and Multivalued Documents:
 ---------------------------------Part – A (Use collection “Stock” created in Lab-12)--------------------------------
+
 1. Create an index on the company field in the stocks collection.
 db.Stock.createIndex({company:1})
 
