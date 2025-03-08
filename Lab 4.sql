@@ -136,7 +136,71 @@ end
 select dbo.FR_Palindrome('16461');
  -----------------------------------------------Part-C-------------------------------------------------
 --11. Write a function to check whether a given number is prime or not.
+create or alter function FN_PrimeNumber(@num int)
+	returns varchar(100)
+as
+begin
+	declare @result varchar(10);
+	if @num = 1
+		begin
+			set @result = 'Not Prime'
+			return @result
+		end
+	declare @count int = 0;
+	declare @i int = 2;
+	while @i <= @num / 2
+		begin
+			if @num % @i = 0
+				set @count = @count + 1
+				set @i = @i + 1
+		end
+	if @count = 0
+		set @result = 'Prime'
+	else
+		set @result = 'Not Prime'
+	return @result
+end
+
+select dbo.FN_PrimeNumber(9)
+
 --12. Write a function which accepts two parameters start date & end date, and returns a difference in days.
+create or alter function FN_DateDifference(@Start datetime, @End datetime)
+	returns int
+as
+begin
+	return datediff(day, @Start, @End)
+end
+
+select dbo.FN_DateDifference('2024-12-01', '2024-12-10')
+
 --13. Write a function which accepts two parameters year & month in integer and returns total days each year.
+create or alter function FN_GetDaysInMonthYear(@Year INT, @Month INT)
+	returns int
+as
+begin
+    return case 
+                when @Month in (1, 3, 5, 7, 8, 10, 12) then 31
+                when @Month in (4, 6, 9, 11) then 30
+                when @Month = 2 and ((@Year % 4 = 0 and @Year % 100 != 0) or @Year % 400 = 0) then 29
+                when @Month = 2 then 28
+                else 0
+            end
+end
+
+select dbo.FN_GetDaysInMonthYear(2024, 2)
+
 --14. Write a function which accepts departmentID as a parameter & returns a detail of the persons.
+create or alter function FN_PersonDetails(@DepartmentID int)
+	returns table
+as
+	return (select * from Person where DepartmentID = @DepartmentID)
+
+select * from dbo.FN_PersonDetails(1)
+
 --15. Write a function that returns a table with details of all persons who joined after 1-1-1991.
+create or alter function FN_Persondetails_JoiningDate()
+	returns table
+as
+	return (select * from Person where JoiningDate > '1991-01-01')
+
+select * from dbo.FN_Persondetails_JoiningDate()
