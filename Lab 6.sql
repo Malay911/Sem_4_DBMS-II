@@ -182,6 +182,67 @@ INSERT INTO Products (Product_id, Product_Name, Price) VALUES
 
 ----------------------------------Part - C--------------------------------------- 
 --7. Create a cursor to insert details of Products into the NewProducts table if the product is “Laptop” 
---(Note: Create NewProducts table first with same fields as Products table) 
---8. Create a Cursor to Archive High-Price Products in a New Table (ArchivedProducts), Moves products 
---with a price above 50000 to an archive table, removing them from the original Products table.
+--(Note: Create NewProducts table first with same fields as Products table)
+CREATE TABLE NewProducts (
+    Product_id INT PRIMARY KEY,
+    Product_Name VARCHAR(250) NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL
+);
+
+DECLARE @Product_id INT;
+DECLARE @Product_Name VARCHAR(250);
+DECLARE @Price DECIMAL(10, 2);
+
+DECLARE NewProducts_Cursor_Insert CURSOR FOR
+SELECT Product_id, Product_Name, Price
+FROM Products
+WHERE Product_Name = 'Laptop';
+
+OPEN NewProducts_Cursor_Insert;
+
+FETCH NEXT FROM NewProducts_Cursor_Insert INTO @Product_id, @Product_Name, @Price;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    INSERT INTO NewProducts (Product_id, Product_Name, Price)
+    VALUES (@Product_id, @Product_Name, @Price);
+
+    FETCH NEXT FROM NewProducts_Cursor_Insert INTO @Product_id, @Product_Name, @Price;
+END;
+
+CLOSE NewProducts_Cursor_Insert;
+DEALLOCATE NewProducts_Cursor_Insert;
+
+--8. Create a Cursor to Archive High-Price Products in a New Table (ArchivedProducts), Moves products with a price above 50000 to an archive table, removing them from the original Products table.
+CREATE TABLE ArchivedProducts (
+    Product_id INT PRIMARY KEY,
+    Product_Name VARCHAR(250) NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL
+);
+
+DECLARE @Product_id INT;
+DECLARE @Product_Name VARCHAR(250);
+DECLARE @Price DECIMAL(10, 2);
+
+DECLARE ArchivedProducts_Cursor_Insert CURSOR FOR
+SELECT Product_id, Product_Name, Price
+FROM Products
+WHERE Price > 50000;
+
+OPEN ArchivedProducts_Cursor_Insert;
+
+FETCH NEXT FROM ArchivedProducts_Cursor_Insert INTO @Product_id, @Product_Name, @Price;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    INSERT INTO ArchivedProducts (Product_id, Product_Name, Price)
+    VALUES (@Product_id, @Product_Name, @Price);
+
+	DELETE FROM Products
+    WHERE Product_id = @Product_id;
+
+    FETCH NEXT FROM ArchivedProducts_Cursor_Insert INTO @Product_id, @Product_Name, @Price;
+END;
+
+CLOSE ArchivedProducts_Cursor_Insert;
+DEALLOCATE ArchivedProducts_Cursor_Insert;
