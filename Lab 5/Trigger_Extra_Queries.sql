@@ -198,7 +198,26 @@ begin
 end
 
 --2.	Create a trigger that only allows to insert movies for which Rating is greater than 5.5 .
+create trigger tr_insteadOfRating 
+on Movies
+instead of insert
+as
+begin
+	Declare @MovieID int, @MovieTitle varchar(200), @ReleaseYear int, @Genre varchar(200), @Rating decimal(3, 2), @Duration int
+	select @MovieID = MovieID from inserted
+	select @MovieTitle = MovieTitle from inserted
+	select @ReleaseYear = ReleaseYear from inserted
+	select @Genre = Genre from inserted
+	select @Rating = Rating from inserted
+	select @Duration = Duration from inserted
+	
+	if(@Rating > 5.5)
+	begin
+		insert into Movies values(@MovieID, @MovieTitle, @ReleaseYear, @Genre, @Rating, @Duration)
+	end
 
+end
+	
 --3.	Create trigger that prevent duplicate 'MovieTitle' of Movies table and log details of it in MoviesLog table.
 
 --4.	Create trigger that prevents to insert pre-release movies.
