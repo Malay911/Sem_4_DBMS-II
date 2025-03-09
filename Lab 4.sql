@@ -136,30 +136,21 @@ end
 select dbo.FR_Palindrome('16461');
  -----------------------------------------------Part-C-------------------------------------------------
 --11. Write a function to check whether a given number is prime or not.
-create or alter function FN_PrimeNumber(@num int)
-	returns varchar(100)
-as
-begin
-	declare @result varchar(10);
-	if @num = 1
-		begin
-			set @result = 'Not Prime'
-			return @result
-		end
-	declare @count int = 0;
-	declare @i int = 2;
-	while @i <= @num / 2
-		begin
-			if @num % @i = 0
-				set @count = @count + 1
-				set @i = @i + 1
-		end
-	if @count = 0
-		set @result = 'Prime'
-	else
-		set @result = 'Not Prime'
-	return @result
-end
+CREATE OR ALTER FUNCTION FN_PrimeNumber(@num int)
+RETURNS VARCHAR(20)
+AS
+BEGIN
+	DECLARE @i INT = 2;
+	IF @num <= 1
+		RETURN 'Not Prime';
+	WHILE @i <= @num/2
+	BEGIN
+		IF @num % @i = 0
+			RETURN 'Not Prime';
+		SET @i = @i + 1;
+	END
+	RETURN 'Prime'
+END
 
 select dbo.FN_PrimeNumber(9)
 
