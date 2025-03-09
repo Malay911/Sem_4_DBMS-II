@@ -125,6 +125,7 @@ INSERT INTO Products (Product_id, Product_Name, Price) VALUES
 ----------------------------------Part - B--------------------------------------- 
 --5. Create a cursor Product_CursorUpdate that retrieves all the data from the products table and increases 
 --the price by 10%.
+		
 	declare @Product_id int,@Product_name varchar(100),@Price int
 
 	declare Product_CursorUpdate cursor
@@ -153,6 +154,7 @@ INSERT INTO Products (Product_id, Product_Name, Price) VALUES
 	select * from Products
 
 --6. Create a Cursor to Rounds the price of each product to the nearest whole number.
+		
 	declare @Price int
 
 	declare Product_CursorRound cursor
@@ -183,6 +185,7 @@ INSERT INTO Products (Product_id, Product_Name, Price) VALUES
 ----------------------------------Part - C--------------------------------------- 
 --7. Create a cursor to insert details of Products into the NewProducts table if the product is “Laptop” 
 --(Note: Create NewProducts table first with same fields as Products table)
+		
 CREATE TABLE NewProducts (
     Product_id INT PRIMARY KEY,
     Product_Name VARCHAR(250) NOT NULL,
@@ -214,6 +217,7 @@ CLOSE NewProducts_Cursor_Insert;
 DEALLOCATE NewProducts_Cursor_Insert;
 
 --8. Create a Cursor to Archive High-Price Products in a New Table (ArchivedProducts), Moves products with a price above 50000 to an archive table, removing them from the original Products table.
+
 CREATE TABLE ArchivedProducts (
     Product_id INT PRIMARY KEY,
     Product_Name VARCHAR(250) NOT NULL,
